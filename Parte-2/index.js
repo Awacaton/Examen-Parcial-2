@@ -8,7 +8,39 @@ let app = express();
 
 let server;
 
-/* Tu código va aquí */
+app.put("/api/bookmarks/:id", jsonParser, (req,res) =>{
+	let id = req.params.body;
+	let titulo = req.body.titulo;
+	let descripcion = req.body.descripcion;
+	let url = req.body.url;
+
+	if (req.body.id){
+		if (id == req.body.id){
+			if (titulo != "" && descripcion != "" && url != ""){
+				BooksMarkList.actualizar(titulo,descripcion,url,id)
+                .then( (bookmark) =>{
+                    return res.status(202).json(bookmark); 
+                })
+                .catch((error) =>{
+                    return res.status(500).json(error);
+                })
+			}else{	
+				res.status(406).send("No hay ningun campo a cambiar");
+
+			}
+			
+		} else{
+			res.status(409).send("no Coinciden los IDs");
+		}
+
+	} else {
+		res.status(406).send("No se envio el Id en el cuerpo");
+	}
+
+
+});
+
+
 
 function runServer( port, databaseUrl ){
 	return new Promise( (resolve, reject ) => {
