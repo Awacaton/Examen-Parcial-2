@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 /* Tu código va aquí */
 
-let bookmark = mongoose.model("bookmars", bookCollection);
+let Bookmark = mongoose.model("bookmars", bookCollection);
 
 
 
@@ -17,17 +17,29 @@ let bookCollection = mongoose.Schema({
 });
 
 let BookmarkList = {
-    actualizar : function(titulo, descripcion, url) {
-        return Bookmark.find()
-        .then(Bookmarck=>{
-            return Bookmarck;
+    actualizar : function(id, titulo, descripcion, url) {
+        let act = {
+            id
+        }
+        if(titulo){
+            act.titulo = titulo;
+        }
+        if(descripcion){
+            act.contenido = contenido;
+
+        }
+        if (url){
+            id.url = url; 
+        }
+        return Bookmark.updateMany({id},act)
+        .then(bookmark =>{
+            return bookmark;
 
         })
-        .catch( error => {
-            throw Error (error);
+        .catch(error =>{
+            throw Error(error);
         });
     }
-
 }
 
 
