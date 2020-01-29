@@ -44,5 +44,5 @@ let BookmarkList = {
 
 
 module.exports = {
-    
+    BookmarkList
 };
